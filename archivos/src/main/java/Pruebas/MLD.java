@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package MLD;
+package Pruebas;
 
 import Admin.FileHandling;
 import java.awt.event.KeyAdapter;
@@ -12,7 +12,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import Data.Data;
+import Registros.Data;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 import static javax.swing.JOptionPane.showMessageDialog;

@@ -3,8 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tree;
-import Data.Data;
+package Lab01;
+import Registros.Data;
 
 import Access.HandleFiles;
 import java.io.File;

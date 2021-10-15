@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Email;
+package Restricciones;
 
-import Data.Data;
-import Tree.Correo;
-import Tree.HandleTree;
+import Registros.Data;
+import Lab01.Correo;
+import Lab01.HandleTree;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;

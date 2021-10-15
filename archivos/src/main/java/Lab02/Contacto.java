@@ -1,4 +1,4 @@
-package Contacts;
+package Lab02;
 
 import Access.Usuario;
 

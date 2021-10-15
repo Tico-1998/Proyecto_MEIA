@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Contacts;
+package Lab02;
 
-import Data.Data;
+import Registros.Data;
 import Access.Usuario;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

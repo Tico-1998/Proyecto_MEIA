@@ -1,6 +1,6 @@
-package Contacts;
+package Lab02;
 
-import Contacts.AdminContactos;
+import Lab02.AdminContactos;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import Access.HandleFiles;
 import Access.Usuario;
-import Contacts.Contacto;
+import Lab02.Contacto;
 
 public class HandleContacts {
 

@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Data;
+package Registros;
 
 import Access.Usuario;
-import Tree.Correo;
-import Tree.Tree;
+import Lab01.Correo;
+import Lab01.Tree;
 
 /**
  * Patrón singleton, usado para persistir el usuario actual en la aplicación.

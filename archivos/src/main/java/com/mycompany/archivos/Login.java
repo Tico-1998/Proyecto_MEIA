@@ -10,7 +10,7 @@ import Access.MD5;
 import Access.Usuario;
 import Admin.Admin;
 import javax.swing.JOptionPane;
-import Data.Data;
+import Registros.Data;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 

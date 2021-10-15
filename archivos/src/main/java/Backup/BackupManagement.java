@@ -10,7 +10,7 @@ import javax.swing.*;
 import Access.Usuario;
 import Backup.HandleFile;
 import Admin.Admin;
-import Data.Data;
+import Registros.Data;
 import java.awt.Toolkit;
 /**
  *
