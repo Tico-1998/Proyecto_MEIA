@@ -211,7 +211,7 @@ public class Registro extends javax.swing.JFrame {
         if (usuarioTField.getText().length() < 20
                 && nombreTField.getText().length() < 30
                 && apellidoTField.getText().length() < 30
-                && (Boolean) validacion[0] == false
+                && (Boolean) validacion[0] == true
                 && contieneUsuario(new String(contraseñaTField.getPassword())) == false
                 && handler.uniqueKey(usuarioTField.getText())
                 && validEmail(alternoTField.getText())
@@ -242,7 +242,7 @@ public class Registro extends javax.swing.JFrame {
             this.dispose();
 
         } else {
-            JOptionPane.showMessageDialog(null, "CAMPOS INVÁLIDOS\n" + FormatFields(validacion));
+            JOptionPane.showMessageDialog(null, "CAMPOS INVÁLIDOS\n" + FormatFields(validacion)+"\nSEGURIDAD DE CONTRASEÑA: "+validacion[1].toString());
         }
     }//GEN-LAST:event_jButton1MouseClicked
 
@@ -325,7 +325,7 @@ public class Registro extends javax.swing.JFrame {
             error += "CONTRASEÑA DÉBIL";
         } else if (contieneUsuario(new String(contraseñaTField.getPassword())) == true) {
             error += "La contraseña contiene el nombre de usuario\n";
-        } else if (contraseñaTField.getPassword().length < 8 || contraseñaTField.getPassword().length > 40) {
+        } else if (contraseñaTField.getPassword().length < 3 || contraseñaTField.getPassword().length > 40) {
             error += "El campo \"Contraseña\" debe tener 8-40 caracteres\n";
         }
 
@@ -350,65 +350,104 @@ public class Registro extends javax.swing.JFrame {
      * la validación general verdadero o falso siguiendo nuestros criterios.
      */
     private Object[] validarContraseña(String input) {
-        File obj = new File("C:\\MEIA\\SecurityLevel.txt");
-        System.out.println(input);
-        String response = "";
+        String response="";
+        int longitud = input.length();
+        int puntuacionFinal=0;
+        int mayusculas = 0;
+        int digito = 0;
+        int letra =0;
+        int signos=0;
 
-        if (obj.exists()) {
-            FileReader lectura;
+        File puntuacion = new File( "C:\\MEIA\\puntuacion.txt" );
+        File resultado = new File( "C:\\MEIA\\resultado.txt" );
 
-            try {
-                //crear el lector
-                lectura = new FileReader(obj);
-                BufferedReader reader = new BufferedReader(lectura);
-                String linea = "";
+        try(BufferedReader br = new BufferedReader(new FileReader(puntuacion))){
 
-                try {
-                    linea = reader.readLine();
-                    String[] split;
+        String[] parametros = new String[8];
 
-                    while (linea != null) {
-                        if (!"".equals(linea)) {
-                            split = linea.split("\\|");
+        for (int i = 0; i < 8; i++) {
+            parametros[i] = br.readLine();
+        }
 
-                            // comparar entrada contra regex 
-                            if (Pattern.matches(split[0], input)) {
-                                response = split[1];
-                                break;
-                            }
-                        }
-                        linea = reader.readLine();
-                    }
+        int evaluarLongitud = Integer.parseInt(parametros[0]);
+        
+        for (int i = 0; i < longitud; i++) 
+        {
+            if (Character.isUpperCase(input.charAt(i))) mayusculas++;
+            if (Character.isLetter(input.charAt(i))) letra++;
+            if (Character.isDigit(input.charAt(i))) digito++;    
+        }
+        signos=longitud-letra;
+        signos=signos-digito;
 
-                    if ("".equals(response)) {
-                        response = "LONGITUD INVÁLIDA PARA LA CONTRASEÑA";
-                        System.out.println(response);
-                        return new Object[]{false, response};
-                    }
+        if(longitud<evaluarLongitud){
 
-                    if ("DEBIL".equals(response)) {
-                        return new Object[]{false, response};
-                    }
+            JOptionPane.showMessageDialog(null, "La longitud de la contraseña es menor de: " + parametros[0],"", WIDTH);
+        }
+        else{
+            puntuacionFinal = longitud;
+            puntuacionFinal =puntuacionFinal * Integer.parseInt(parametros[1]);
+            puntuacionFinal =puntuacionFinal + (Integer.parseInt(parametros[2])*mayusculas);
+            puntuacionFinal =puntuacionFinal + (Integer.parseInt(parametros[3])+letra);
+            puntuacionFinal =puntuacionFinal + (Integer.parseInt(parametros[4])+digito);
+            puntuacionFinal =puntuacionFinal + (signos*longitud)+Integer.parseInt(parametros[5]);
+            puntuacionFinal =puntuacionFinal - (Integer.parseInt(parametros[6]));
+            puntuacionFinal =puntuacionFinal - (Integer.parseInt(parametros[7]));
+        }
+        
+        
+            
 
-                    lectura.close();
-                    reader.close();
-                    System.out.println(response);
-                    return new Object[]{true, response};
-                } catch (IOException ex) {
-                    response = ex.getMessage();
-                    System.out.println(response);
-                    return new Object[]{false, response};
-                }
-            } catch (FileNotFoundException ex) {
-                // archivo no encontrado
-                response = ex.getMessage();
-                System.out.println(response);
+        }
+    catch(IOException ex)
+    {
+    JOptionPane.showMessageDialog(null, "Hubo un error de lectura: ","", WIDTH);
+    }
+        try(BufferedReader brr = new BufferedReader(new FileReader(resultado))){
+
+        String[] resultados = new String[8];
+        
+
+            for (int i = 0; i < 8; i=i+2) {
+                String[] split=brr.readLine().split(",");
+                resultados[i] = split[0];
+                resultados[i+1]=split[1];
+                
+            }
+            if (Integer.parseInt(resultados[1])>puntuacionFinal) {
+                //constraseña insegura
+                //Lresult.setForeground(Color.red);
+                response="Contraseña insegura";
                 return new Object[]{false, response};
             }
-        } else {
-            return new Object[]{false, response};
+            else if (Integer.parseInt(resultados[3])>puntuacionFinal) {
+                //contraseña poco segura
+                //Lresult.setForeground(Color.yellow);
+                response="Contraseña poco segura";
+                return new Object[]{false, response};
+            }
+            else if (Integer.parseInt(resultados[5])>puntuacionFinal) {
+                //contraseña segura
+                //Lresult.setForeground(Color.green);
+                response="Contraseña segura";
+                return new Object[]{true, response};
+            }
+            else if (Integer.parseInt(resultados[6])<puntuacionFinal) {
+                //contraseña muy segura
+                //Lresult.setForeground(Color.blue);
+                response="Contraseña muy segura";
+                return new Object[]{true, response};
+            }
+            
         }
-    }
+        catch(IOException ex)
+        {
+        JOptionPane.showMessageDialog(null, "Hubo un error de lectura: ","", WIDTH);
+        }
+    return new Object[] {true,response};//validar
+    
+    }    
+      
 
     /**
      * Verifica que la contraseña no contenga el usuario, para evitar que sea
