@@ -219,7 +219,8 @@ public class Registro extends javax.swing.JFrame {
                 && telefonoTField.getText().length() == 8
                 && validarFecha(nacimientoTField.getText()) == true
                 && alternoTField.getText().length() < 40
-                && fotoTField.getText().length() < 182) {
+                && fotoTField.getText().length() < 182
+                && fotoTField.getText().length()>0){
             // registro correcto
             JOptionPane.showMessageDialog(null, "REGISTRO EXITOSO\nSEGURIDAD DE CONTRASEÑA: " + validacion[1].toString());
 
