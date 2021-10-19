@@ -525,10 +525,37 @@ public class Admin extends javax.swing.JFrame {
      * @param evt
      */
     private void Boton_BajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton_BajaActionPerformed
+        
+        
+        int isAdmin = Data.Instance().user.getRol();
+        String usuario = Data.Instance().user.getUsuario();
+        Boolean bitacora = true;
+        if (isAdmin==0) {
+            
+            FileHandling manejo2 = new FileHandling();
+            String[] valores = {};
+            valores = manejo2.Read_Text("C:\\MEIA\\bitacora_usuario.txt", usuario);
+            if (valores[0].equals(usuario)==false) {
+            valores = manejo2.Read_Text("C:\\MEIA\\usuario.txt", usuario);
+            bitacora = false;
+            
+        }
+        
+        Usuario_Nuevo = valores;    //Para ser utilizado en otros métodos sin necesidad de leer el archivo
+            
+        }
+        
         if (Usuario_Nuevo.length > 0) {
             showMessageDialog(null, "Se dará de baja al usuario " + Usuario_Nuevo[0]);
             FileHandling manejo = new FileHandling();
-            String ruta = "C:\\MEIA\\bitacora_usuario.txt";
+            String ruta="";
+            if (bitacora==true) {
+                ruta = "C:\\MEIA\\bitacora_usuario.txt";    
+            }
+            if (bitacora==false) {
+                ruta = "C:\\MEIA\\usuario.txt";   
+            }
+            
             String[] new_values = {
                 Usuario_Nuevo[0],
                 Usuario_Nuevo[1],
@@ -561,7 +588,7 @@ public class Admin extends javax.swing.JFrame {
                 Boton_Baja.setEnabled(true);
             }
         } else {
-            Boton_Baja.setEnabled(false);
+            Boton_Baja.setEnabled(true);
         }
     }//GEN-LAST:event_BajaActionPerformed
 
