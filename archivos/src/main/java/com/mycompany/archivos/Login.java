@@ -153,6 +153,7 @@ public class Login extends javax.swing.JFrame {
      *
      * @param evt Click
      */
+    static String valorUsuario;
     private void ingresarButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarButtonMouseClicked
         // TODO add your handling code here:
         if (!"".equals(usuarioTField.getText()) && contraseñaTField.getPassword().length > 0) {
@@ -161,7 +162,7 @@ public class Login extends javax.swing.JFrame {
             if (temp != null) {
                 System.out.println("CORRECTO");
                 Data.Instance().user = temp; // usuario actual
-                
+                valorUsuario=usuarioTField.getText();
                 // conceder acceso
                 Admin adminFrame = new Admin();
                 adminFrame.setVisible(true);

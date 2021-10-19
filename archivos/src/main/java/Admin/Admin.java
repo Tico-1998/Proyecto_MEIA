@@ -384,6 +384,22 @@ public class Admin extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String oldPass = String.valueOf(old_Pass.getPassword());
         int tam = birthday.getText().length();
+        int isAdmin = Data.Instance().user.getRol();
+        String usuario = Data.Instance().user.getUsuario();
+        
+        if (isAdmin==0) {
+            
+            FileHandling manejo2 = new FileHandling();
+            String[] valores = {};
+            valores = manejo2.Read_Text("C:\\MEIA\\bitacora_usuario.txt", usuario);
+            if (valores[0].equals(usuario)==false) {
+            valores = manejo2.Read_Text("C:\\MEIA\\usuario.txt", usuario);
+            
+        }
+        
+        Usuario_Nuevo = valores;    //Para ser utilizado en otros métodos sin necesidad de leer el archivo
+            
+        }
 
         if (!"".equals(oldPass)) {
             if (!MD5.encryptPassword(oldPass).equals(Usuario_Nuevo[3].toString())) {
