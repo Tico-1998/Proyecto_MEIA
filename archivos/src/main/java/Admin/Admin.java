@@ -379,6 +379,8 @@ public class Admin extends javax.swing.JFrame {
      *
      * @param evt
      */
+    static Boolean bitac=true;
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String oldPass = String.valueOf(old_Pass.getPassword());
         int tam = birthday.getText().length();
@@ -405,10 +407,21 @@ public class Admin extends javax.swing.JFrame {
                     Usuario_Nuevo[8], //Ruta foto perfil
                     Usuario_Nuevo[9] //Status
                 };
+                
+                if (bitac == true) {
                 FileHandling manejo = new FileHandling();
                 String ruta = "C:\\MEIA\\bitacora_usuario.txt";
                 manejo.Write_Text(Usuario_Nuevo, new_values, ruta);
+                showMessageDialog(null, "Usuario modificado");    
+                }
+                if(bitac == false){
+                FileHandling manejo = new FileHandling();
+                String ruta = "C:\\MEIA\\usuario.txt";
+                manejo.Write_Text(Usuario_Nuevo, new_values, ruta);
                 showMessageDialog(null, "Usuario modificado");
+                }
+                
+                
             }
         } else {
             if (birthday.getText().length() < 10) {
@@ -430,10 +443,19 @@ public class Admin extends javax.swing.JFrame {
                     Usuario_Nuevo[8], //Ruta foto perfil
                     Usuario_Nuevo[9] //Status
                 };
+                
+                if (bitac == true) {
                 FileHandling manejo = new FileHandling();
                 String ruta = "C:\\MEIA\\bitacora_usuario.txt";
                 manejo.Write_Text(Usuario_Nuevo, new_values, ruta);
+                showMessageDialog(null, "Usuario modificado");    
+                }
+                if(bitac == false){
+                FileHandling manejo = new FileHandling();
+                String ruta = "C:\\MEIA\\usuario.txt";
+                manejo.Write_Text(Usuario_Nuevo, new_values, ruta);
                 showMessageDialog(null, "Usuario modificado");
+                }
             }
         }
 
@@ -544,7 +566,14 @@ public class Admin extends javax.swing.JFrame {
         String Usuario = JOptionPane.showInputDialog(null, "Ingrese el nombre del usuario que desea administrar:");
         FileHandling manejo = new FileHandling();
         String[] valores = {};
+        bitac = true;
         valores = manejo.Read_Text("C:\\MEIA\\bitacora_usuario.txt", Usuario);
+        if (valores[0].equals(Usuario)==false) {
+            
+            valores = manejo.Read_Text("C:\\MEIA\\usuario.txt", Usuario);
+            bitac = false;
+        }
+        
         Usuario_Nuevo = valores;    //Para ser utilizado en otros métodos sin necesidad de leer el archivo
         User_Name.setText(valores[0]);
         name.setText(valores[1]);
