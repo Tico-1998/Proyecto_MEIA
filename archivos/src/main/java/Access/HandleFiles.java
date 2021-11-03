@@ -27,7 +27,7 @@ public class HandleFiles {
     File desc_usuario = new File("C:\\MEIA\\desc_usuario.txt");
     File bitacora_usuario = new File("C:\\MEIA\\bitacora_usuario.txt");
     File desc_bitacora_usuario = new File("C:\\MEIA\\desc_bitacora_usuario.txt");
-    int maximo = 2;
+    int maximo = 3;
     /**
      * Conteo de usuarios. Utilizado para validar el ingreso del administrador y
      * de usuarios comunes.
