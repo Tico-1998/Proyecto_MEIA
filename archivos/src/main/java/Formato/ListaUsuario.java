@@ -309,7 +309,7 @@ public class ListaUsuario {
     
     private void escribirIndice(String key){       
         String[] keyFields = key.split(",");
-        String usuario = keyFields[1];
+        String usuario = keyFields[0];
         try {
             if (indice.createNewFile()) { // NO EXISTE EL ARCHIVO
                 System.out.println("File created: " + indice.getName());
