@@ -17,10 +17,10 @@ import java.util.ArrayList;
  * @author llaaj
  */
 public class ListaUsuario {
-    File indice = new File("C:\\MEIA\\lista_usuario.txt");
-    File desc_indice = new File("C:\\MEIA\\desc_lista_usuario.txt");
-    File bloque = new File("C:\\MEIA\\bloque_usuario.txt");
-    File desc_bloque = new File("C:\\MEIA\\desc_bloque_usuario.txt");
+    File indice = new File("C:\\MEIA\\Indice_donaciones.txt");
+    File desc_indice = new File("C:\\MEIA\\desc_indice_donaciones.txt");
+    File bloque = new File("C:\\MEIA\\bloque_donaciones.txt");
+    File desc_bloque = new File("C:\\MEIA\\desc_bloque_donaciones.txt");
     int maximo = 5;
     
     public Boolean insertar(String key, String descripcion){
